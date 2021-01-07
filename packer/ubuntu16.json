@@ -1,0 +1,14 @@
+{
+    "builders": [
+        {
+            "type": "yandex",
+            "service_account_key_file": "~/edu/otus_devops/secrets_otus_devops/key.json",
+            "folder_id": "b1g0hb7q84svqad7un6v",
+            "source_image_family": "ubuntu-1604-lts",
+            "image_name": "reddit-base-{{timestamp}}",
+            "image_family": "reddit-base",
+            "ssh_username": "ubuntu",
+            "platform_id": "standard-v1"
+        }
+    ]
+}
