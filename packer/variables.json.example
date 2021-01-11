@@ -1,0 +1,6 @@
+{
+  "token": "some_token",
+  "folder_id": "some_folder_id",
+  "source_image_family": some_image_family",
+  "service_account_key_file": "/path/to/key.json"
+}
