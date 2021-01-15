@@ -54,7 +54,7 @@ appuser@someinternalhost:~$
 ### HW No. 4 (Lecture No. 6)
 
 ```
-testapp_IP = 84.201.130.59
+testapp_IP = 178.154.227.126
 testapp_port = 9292
 ```
 
