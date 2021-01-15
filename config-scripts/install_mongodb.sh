@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 sudo apt update
-#sudo apt install apt-transport-https ca-certificates -y
+sudo apt install apt-transport-https ca-certificates -y
 # Add key for MongoDB
 wget -qO - https://www.mongodb.org/static/pgp/server-4.2.asc | sudo apt-key add -
 # Add MongoDB repo
