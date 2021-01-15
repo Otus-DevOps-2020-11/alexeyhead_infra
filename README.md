@@ -85,3 +85,131 @@ yc compute instance create \
   --metadata serial-port-enable=1 \
   --metadata-from-file user-data=./metadata.yml
 ```
+### HW No. 5 (Lecture No. 7)
+
+- Installed and configured Packer to work with YC. Create service account YC, key and setup role
+
+```
+SVC_ACCT="some_name"
+FOLDER_ID="folder_id_from yc config list"
+yc iam service-account create --name $SVC_ACCT --folder-id $FOLDER_ID
+ACCT_ID=$(yc iam service-account get $SVC_ACCT grep ^id awk '{print $2}')
+yc resource-manager folder add-access-binding --id $FOLDER_ID --role editor --service-account-id $ACCT_ID
+yc iam key create --service-account-id $ACCT_ID --output /path/to/file/key.json
+```
+
+- Create ubuntu16.json for building custom VM image, copy cripts install_* from ./config-script to ./packer/scripts
+
+```
+{
+    "builders": [
+        {
+            "type": "yandex",
+            "service_account_key_file": "вставьте путь до своего",
+            "folder_id": "вставьте свой",
+            "source_image_family": "ubuntu-1604-lts",
+            "image_name": "reddit-base-{{timestamp}}",
+            "image_family": "reddit-base",
+            "use_ipv4_nat" = "true",
+            "ssh_username": "ubuntu",
+            "platform_id": "standard-v1"
+        }
+    ],
+    "provisioners": [
+        {
+            "type": "shell",
+            "script": "scripts/install_ruby.sh",
+            "execute_command": "sudo {{.Path}}"
+        },
+        {
+            "type": "shell",
+            "script": "scripts/install_mongodb.sh",
+            "execute_command": "sudo {{.Path}}"
+        }
+    ]
+}
+```
+
+- Check and build Packer template
+
+```
+packer validate ./ubuntu16.json
+packer build ./ubuntu16.json
+```
+
+- Create new VM from YC and deploy app (from deploy.sh).
+
+- Create variables.json.example with custom variables for Packer
+
+```
+{
+  "token": "some_token",
+  "folder_id": "some_folder_id",
+  "source_image_family": some_image_family",
+  "service_account_key_file": "/path/to/key.json"
+}
+```
+
+- Create systemd unit named "packer/files/puma.service" for start Puma service when VM is booted
+
+```
+
+```
+
+- Create immutable.json for building "baked" image with installed Ruby, MongoDB and Monolith app
+
+```
+{
+    "builders": [
+        {
+            "type": "yandex",
+            "service_account_key_file": "{{ user `service_account_key_file` }}",
+            "folder_id": "{{ user `folder_id` }}",
+            "source_image_family": "ubuntu-1604-lts",
+            "image_name": "reddit-full-{{timestamp}}",
+            "image_family": "reddit-full",
+	        "use_ipv4_nat": "true",
+            "ssh_username": "ubuntu",
+            "platform_id": "standard-v1",
+            "instance_mem_gb": "2",
+            "disk_size_gb": "10"
+        }
+    ],
+    "provisioners": [
+        {
+            "type": "shell",
+            "script": "./scripts/install_ruby.sh",
+            "execute_command": "sudo {{.Path}}"
+        },
+        {
+            "type": "shell",
+            "script": "./scripts/install_mongodb.sh",
+            "execute_command": "sudo {{.Path}}"
+        },
+        {
+            "type": "file",
+            "source": "./files/puma.service",
+            "destination": "/tmp/puma.service"
+        },
+        {
+            "type": "shell",
+            "script": "./scripts/deploy.sh",
+            "execute_command": "sudo {{.Path}}"
+        }
+    ]
+}
+```
+
+- Create a script (config-scripts/create-reddit-vm.sh) to run a backed image with a set of software and application
+
+```
+#!/usr/bin/env bash
+yc compute instance create \
+  --name reddit-app \
+  --hostname reddit-app \
+  --memory=2 \
+  --create-boot-disk image-family=reddit-full,size=10GB \
+  --network-interface subnet-name=default-ru-central1-a,nat-ip-version=ipv4 \
+  --metadata serial-port-enable=1 \
+  --ssh-key ~/.ssh/appuser.pub
+```
