@@ -24,3 +24,8 @@ variable service_account_key_file {
 variable private_key_path {
   description = "Path to the private key used for ssh access"
 }
+variable vm_count {
+  description = "Number of VM"
+  # default value
+  default = 3
+}

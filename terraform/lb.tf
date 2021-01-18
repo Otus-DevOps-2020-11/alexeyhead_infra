@@ -1,12 +1,3 @@
-resource "yandex_lb_target_group" "app_target_group" {
-  name = "reddit-app-target-group"
-
-  target {
-    address = "${yandex_compute_instance.app.network_interface.0.ip_address}"
-    subnet_id = var.subnet_id
-  }
-}
-
 resource "yandex_lb_network_load_balancer" "app_load_balancer" {
   name = "reddit-app-load-balancer"
 
@@ -29,4 +20,21 @@ resource "yandex_lb_network_load_balancer" "app_load_balancer" {
       }
     }
   }
+}
+
+resource "yandex_lb_target_group" "app_target_group" {
+  name = "reddit-app-target-group"
+
+  dynamic "target" {
+    for_each = yandex_compute_instance.app.*.network_interface.0.ip_address
+    content {
+      subnet_id = var.subnet_id
+      address = target.value
+    }
+  }
+
+#  target {
+#    address = "${yandex_compute_instance.app2.network_interface.0.ip_address}"
+#    subnet_id = var.subnet_id
+#  }
 }
