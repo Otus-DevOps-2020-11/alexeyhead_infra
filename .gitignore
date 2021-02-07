@@ -5,3 +5,5 @@ packer/variables.json
 *.tfstate.backup
 *.tfvars
 .terraform/
+terraform/stage/backend.tf
+terraform/prod/backend.tf
