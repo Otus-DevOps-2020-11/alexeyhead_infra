@@ -22,21 +22,3 @@ module "db" {
   db_disk_image    = var.db_disk_image
   subnet_id        = var.subnet_id
 }
-
-//  connection {
-//    type  = "ssh"
-//    #host  = yandex_compute_instance.app[count.index].network_interface.0.nat_ip_address
-//    host  = self.network_interface.0.nat_ip_address
-//    user  = "ubuntu"
-//    agent = false
-//    # private key path
-//    # private_key = file("~/.ssh/appuser")
-//    private_key = file(var.private_key_path)
-//  }
-//  provisioner "file" {
-//    source      = "files/puma.service"
-//    destination = "/tmp/puma.service"
-//  }
-//  provisioner "remote-exec" {
-//    script = "files/deploy.sh"
-//  }
