@@ -18,7 +18,7 @@ cat<<EOF
         }
     },
     "all": {
-        "hosts": [
+        "children": [
             "app",
             "db",
             "ungrouped"
