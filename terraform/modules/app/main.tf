@@ -36,15 +36,15 @@ resource "yandex_compute_instance" "app" {
     private_key = file(var.private_key_path)
   }
 
-  provisioner "file" {
-    # source = "../files/puma.service"
-    # content     = templatefile("${path.module}/files/puma.service", { database_url = var.database_url })
-    content        = templatefile("${path.module}/files/puma.service", {
-      database_url = "${var.database_url}:27017"
-    })
-    destination    = "/tmp/puma.service"
-  }
-  provisioner "remote-exec" {
-    script = "../files/deploy.sh"
-  }
+//  provisioner "file" {
+//    # source = "../files/puma.service"
+//    # content     = templatefile("${path.module}/files/puma.service", { database_url = var.database_url })
+//    content        = templatefile("${path.module}/files/puma.service", {
+//      database_url = "${var.database_url}:27017"
+//    })
+//    destination    = "/tmp/puma.service"
+//  }
+//  provisioner "remote-exec" {
+//    script = "../files/deploy.sh"
+//  }
 }
