@@ -7,3 +7,6 @@ packer/variables.json
 .terraform/
 terraform/stage/backend.tf
 terraform/prod/backend.tf
+venv/
+venv2/
+venv3/
