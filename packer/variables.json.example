@@ -2,5 +2,5 @@
   "token": "ddfAsWWs_yx-AATuwdu73CKFZkkoiQ_rGDU_QJw",
   "folder_id": "some_folder_id",
   "source_image_family": "some_image_family",
-  "service_account_key_file": "/path/to/key.json"
+  "service_account_key_file": ""
 }
