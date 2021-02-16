@@ -1,0 +1,20 @@
+---
+- name: Install Ruby and Bundler
+  hosts: all
+  tasks:
+
+    - name: sleep 40s
+      pause:
+        seconds: 40
+
+    - name: Install packeges
+      become: true
+      apt:
+        name: "{{ item }}"
+        state: present
+        update_cache: yes
+      loop:
+        - ruby-full
+        - ruby-bundler
+        - build-essential
+        - git
