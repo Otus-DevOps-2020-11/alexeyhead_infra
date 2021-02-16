@@ -1,6 +1,6 @@
 {
-  "token": "ddfAsWWs_yx-AATuwdu73CKFZkkoiQ_rGDU_QJw",
+  "token": "987654321,
   "folder_id": "some_folder_id",
-  "source_image_family": "some_image_family",
+  "source_image_family": "ubuntu-1604-lts",
   "service_account_key_file": ""
 }
