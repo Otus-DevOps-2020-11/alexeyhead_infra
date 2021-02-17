@@ -1,7 +1,7 @@
 # group's name
 [app]
 #list of hosts in group
-appserver ansible_host=84.252.130.108
+appserver ansible_host=84.201.172.63
 
 [db]
-dbserver ansible_host=84.201.131.69
+dbserver ansible_host=84.252.129.105
