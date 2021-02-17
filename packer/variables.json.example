@@ -2,5 +2,5 @@
   "token": "987654321",
   "folder_id": "dfggfgdfgdfgsdfg",
   "source_image_family": "ubuntu-1604-lts",
-  "service_account_key_file": "./key.json"
+  "service_account_key_file": "packer/key.json"
 }
