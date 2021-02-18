@@ -1,0 +1,7 @@
+# group's name
+[app]
+#list of hosts in group
+appserver ansible_host=178.154.247.190
+
+[db]
+dbserver ansible_host=178.154.247.147
