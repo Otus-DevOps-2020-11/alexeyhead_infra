@@ -11,3 +11,5 @@ venv/
 venv2/
 venv3/
 .retry
+jdauphant.nginx
+vault.key
