@@ -218,3 +218,7 @@ INFO     Verifier completed successfully.
 - Made the role of `db` in a separate repository
 - Removed the role `db` from the `infra` repository
 - Add in `ansible/environments/{prod,stage}/requirements.yml`
+```
+- name: db
+  src: https://github.com/alexeyhead/ansible_db_role
+```
