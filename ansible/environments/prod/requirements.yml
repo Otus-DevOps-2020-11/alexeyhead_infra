@@ -1,4 +1,5 @@
 - src: jdauphant.nginx
   version: v2.21.1
 
-- src: https://github.com/alexeyhead/ansible_db_role
+- name: db
+  src: https://github.com/alexeyhead/ansible_db_role
